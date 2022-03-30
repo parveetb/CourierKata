@@ -51,6 +51,27 @@ namespace ShippingProject.Tests
         }
 
         [Test]
+        [TestCase(6, 2, ParcelSize.Small)]
+        [TestCase(9, 4, ParcelSize.Medium)]
+        [TestCase(6, 8, ParcelSize.Large)]
+
+        //[TestCase(30)]
+        //[TestCase(75)]
+        //[TestCase(150)]
+        //[TestCase(100)]
+        public void ReturnCorrectParzelSize(double dimensions, double weight, ParcelSize expectedParcelSize)
+        {
+            //Arrange
+
+            //Act
+            var result = Calculate.CalculateParcelSize(dimensions, weight);
+
+            //Assert
+            Assert.AreEqual(expectedParcelSize, result);
+
+        }
+
+        [Test]
         [TestCase(2, 2, 2, 3, 0, ParcelSize.Small, false)]
         [TestCase(10, 10, 10, 8, 0, ParcelSize.Medium, false)]
         [TestCase(25, 25, 25, 15, 0, ParcelSize.Large, false)]
@@ -84,6 +105,16 @@ namespace ShippingProject.Tests
 
         [Test]
         [TestCase(2, ParcelSize.Small, 2)]
+        [TestCase(1, ParcelSize.Small, 0)]
+
+        [TestCase(5, ParcelSize.Medium, 4)]
+        [TestCase(2, ParcelSize.Medium, 0)]
+
+        [TestCase(9, ParcelSize.Large, 6)]
+        [TestCase(5, ParcelSize.Large, 0)]
+
+        [TestCase(15, ParcelSize.XL, 10)]
+        [TestCase(9, ParcelSize.XL, 0)]
 
         public void ReturnCorrectWeightCharge(double weight, ParcelSize parcelSize, double expectedOverWeightCharge)
         {

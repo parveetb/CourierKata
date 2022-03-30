@@ -15,6 +15,8 @@ namespace ShippingProject.Models
 
         public bool IsSpeedyShipping { get; set; }
         public double SpeedyShippingCost { get; set; }
+
+        public double OverWeightCharge { get; set; }
     }
 
 

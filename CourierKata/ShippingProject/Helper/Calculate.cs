@@ -9,6 +9,7 @@ namespace ShippingProject.Helper
 {
     public class Calculate
     {
+        //Weight Limits
         private static readonly double SmallWeightLimit = 1;
 
         private static readonly double MediumWeightLimit = 3;
@@ -17,20 +18,29 @@ namespace ShippingProject.Helper
 
         private static readonly double XLWeightLimit = 10;
 
+
+        //Charge Per KG over weight
         private static readonly double CostPerKgOverWeight = 2;
+
+
+        // ParcelSize Costs
+        private static readonly double SmallParcelCost = 3;
+        private static readonly double MediumParcelCost = 8;
+        private static readonly double LargeParcelCost = 15;
+        private static readonly double XLParcelCost = 25;
 
         public static double CalculateCostFromParcelSize(ParcelSize parcelSize)
         {
             switch (parcelSize)
             {
                 case ParcelSize.Small:
-                    return 3;
+                    return SmallParcelCost;
                 case ParcelSize.Medium:
-                    return 8;
+                    return MediumParcelCost;
                 case ParcelSize.Large:
-                    return 15;
+                    return LargeParcelCost;
                 default:
-                    return 25;
+                    return XLParcelCost;
             }
         }
 
@@ -41,13 +51,13 @@ namespace ShippingProject.Helper
             return dimensions;
         }
 
-        public static ParcelSize CalculateParcelSize(double dimensions)
+        public static ParcelSize CalculateParcelSize(double dimensions, double weight)
         {
-            if (dimensions < 10)
+            if (dimensions < 10 & weight < MediumWeightLimit)
                 return ParcelSize.Small;
-            if (dimensions < 50)
+            if (dimensions < 50 & weight < LargeWeightLimit)
                 return ParcelSize.Medium;
-            if (dimensions < 100)
+            if (dimensions < 100 & weight < XLWeightLimit)
                 return ParcelSize.Large;
 
             return ParcelSize.XL;

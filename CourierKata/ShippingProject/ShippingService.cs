@@ -6,25 +6,26 @@ namespace ShippingProject
 {
     public class ShippingService
     {
-        public static Shipping GetParcelCost(double length, double height, double width)
+        public static Shipping GetParcelCost(double length, double height, double width, double weight)
         {
             Shipping shipping = new Shipping();
 
             var dimensions = Calculate.CalculateDimensions(length, height, width);
 
-            shipping.ParcelSize = Calculate.CalculateParcelSize(dimensions);
+            shipping.ParcelSize = Calculate.CalculateParcelSize(dimensions, weight);
             shipping.ParcelCost = Calculate.CalculateCostFromParcelSize(shipping.ParcelSize);
+            shipping.OverWeightCharge = Calculate.CalculateOverweightCharge(shipping.ParcelSize, weight);
 
             shipping.TotalCost = shipping.ParcelCost;
 
             return shipping;
         }
 
-        public static Shipping GetShippingCost(double length, double height, double width, bool speedyShipping)
+        public static Shipping GetShippingCost(double length, double height, double width, double weight, bool speedyShipping)
         {
             if (speedyShipping == true)
             {
-                Shipping shippingCosts = GetParcelCost(length, height, width);
+                Shipping shippingCosts = GetParcelCost(length, height, width, weight);
 
                 shippingCosts.IsSpeedyShipping = true;
                 shippingCosts.SpeedyShippingCost = shippingCosts.ParcelCost;
@@ -34,7 +35,7 @@ namespace ShippingProject
             }
             else
             {
-                return GetParcelCost(length, height, width);
+                return GetParcelCost(length, height, width, weight);
             }
         }
     }
