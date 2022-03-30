@@ -2,6 +2,7 @@ using NUnit.Framework;
 using Newtonsoft.Json;
 using ShippingProject;
 using ShippingProject.Models;
+using ShippingProject.Helper;
 
 namespace ShippingProject.Tests
 {
@@ -24,7 +25,7 @@ namespace ShippingProject.Tests
         {
             //Arrange
             //Act
-            var result = ShippingService.CalculateCostFromParcelSize(parcelSize);
+            var result = Calculate.CalculateCostFromParcelSize(parcelSize);
 
             //Assert
             Assert.AreEqual(expectedTotal, result);
@@ -42,7 +43,7 @@ namespace ShippingProject.Tests
             //Arrange
 
             //Act
-            var result = ShippingService.CalculateDimensions(length, height, width);
+            var result = Calculate.CalculateDimensions(length, height, width);
 
             //Assert
             Assert.AreEqual(expectedTotal, result);
