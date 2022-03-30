@@ -88,9 +88,12 @@ namespace ShippingProject.Tests
         public void ReturnCorrectWeightCharge(double weight, ParcelSize parcelSize, double expectedOverWeightCharge)
         {
             //Arrange
-            //Act
-            //Assert
 
+            //Act
+            var result = Calculate.CalculateOverweightCharge(parcelSize, weight);
+
+            //Assert
+            Assert.AreEqual(expectedOverWeightCharge, result);
         }
     }
 }

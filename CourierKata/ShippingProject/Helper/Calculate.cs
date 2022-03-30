@@ -53,5 +53,41 @@ namespace ShippingProject.Helper
             return ParcelSize.XL;
 
         }
+
+        public static double CalculateOverweightCharge(ParcelSize parcelSize, double weight)
+        {
+            double overWeightCost;
+
+            switch (parcelSize)
+            {
+                case ParcelSize.Small:
+                    if (weight > SmallWeightLimit)
+                    {
+                        return overWeightCost = (weight - SmallWeightLimit) * CostPerKgOverWeight;
+                    }
+                    break;
+                case ParcelSize.Medium:
+                    if (weight > MediumWeightLimit)
+                    {
+                        return overWeightCost = (weight - MediumWeightLimit) * CostPerKgOverWeight;
+                    }
+                    break;
+                case ParcelSize.Large:
+                    if (weight > LargeWeightLimit)
+                    {
+                        return overWeightCost = (weight - LargeWeightLimit) * CostPerKgOverWeight;
+                    }
+                    break;
+                default:
+                    if (weight > XLWeightLimit)
+                    {
+                        return overWeightCost = (weight - XLWeightLimit) * CostPerKgOverWeight;
+                    }
+                    break;
+            }
+
+            return 0;
+        }
+
     }
 }
