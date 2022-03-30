@@ -24,7 +24,7 @@ namespace ShippingProject.Tests
             //Arrange
 
             //Act
-            double result = 0;  
+            double result = ShippingService.CalculateDeliveryDimensions(length, height, width);
 
             //Assert
             Assert.AreEqual(expectedTotal, result);
