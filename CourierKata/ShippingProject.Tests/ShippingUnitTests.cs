@@ -55,10 +55,11 @@ namespace ShippingProject.Tests
         [TestCase(9, 4, ParcelSize.Medium)]
         [TestCase(6, 8, ParcelSize.Large)]
 
-        //[TestCase(30)]
-        //[TestCase(75)]
-        //[TestCase(150)]
-        //[TestCase(100)]
+        [TestCase(30, 7, ParcelSize.Large)]
+        [TestCase(30, 3, ParcelSize.Medium)]
+
+        [TestCase(75, 5, ParcelSize.Large)]
+        [TestCase(75, 8, ParcelSize.Large)]
         public void ReturnCorrectParzelSize(double dimensions, double weight, ParcelSize expectedParcelSize)
         {
             //Arrange
@@ -72,15 +73,15 @@ namespace ShippingProject.Tests
         }
 
         [Test]
-        [TestCase(2, 2, 2, 3, 0, ParcelSize.Small, false)]
-        [TestCase(10, 10, 10, 8, 0, ParcelSize.Medium, false)]
-        [TestCase(25, 25, 25, 15, 0, ParcelSize.Large, false)]
-        [TestCase(50, 50, 50, 25, 0, ParcelSize.XL, false)]
-        [TestCase(2, 2, 2, 3, 3, ParcelSize.Small, true)]
-        [TestCase(10, 10, 10, 8, 8, ParcelSize.Medium, true)]
-        [TestCase(25, 25, 25, 15, 15, ParcelSize.Large, true)]
-        [TestCase(50, 50, 50, 25, 25, ParcelSize.XL, true)]
-        public void ReturnShippingCosts(double length, double height, double width, double expectedTotal, double speedyShippingCost, ParcelSize parcelSize, bool speedyShipping)
+        [TestCase(2, 2, 2, 1, 3, 0, ParcelSize.Small, false)]
+        [TestCase(10, 10, 10, 2, 8, 0, ParcelSize.Medium, false)]
+        [TestCase(25, 25, 25, 5, 15, 0, ParcelSize.Large, false)]
+        [TestCase(50, 50, 50, 9, 25, 0, ParcelSize.XL, false)]
+        [TestCase(2, 2, 2, 1, 3, 3, ParcelSize.Small, true)]
+        [TestCase(10, 10, 10, 2, 8, 8, ParcelSize.Medium, true)]
+        [TestCase(25, 25, 25, 5, 15, 15, ParcelSize.Large, true)]
+        [TestCase(50, 50, 50, 9, 25, 25, ParcelSize.XL, true)]
+        public void ReturnShippingCosts(double length, double height, double width, double weight, double expectedTotal, double speedyShippingCost, ParcelSize parcelSize, bool speedyShipping)
         {
             //Arrange
             Shipping shipping = new Shipping()
@@ -95,7 +96,7 @@ namespace ShippingProject.Tests
             var expectedResult = JsonConvert.SerializeObject(shipping);
 
             //Act
-            var result = JsonConvert.SerializeObject(ShippingService.GetShippingCost(length, height, width, speedyShipping));
+            var result = JsonConvert.SerializeObject(ShippingService.GetShippingCost(length, height, width, weight, speedyShipping));
 
             //Assert
             Assert.AreEqual(expectedResult, result);

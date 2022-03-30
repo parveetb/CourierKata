@@ -16,7 +16,7 @@ namespace ShippingProject
             shipping.ParcelCost = Calculate.CalculateCostFromParcelSize(shipping.ParcelSize);
             shipping.OverWeightCharge = Calculate.CalculateOverweightCharge(shipping.ParcelSize, weight);
 
-            shipping.TotalCost = shipping.ParcelCost;
+            shipping.TotalCost = shipping.ParcelCost + shipping.OverWeightCharge;
 
             return shipping;
         }
@@ -29,7 +29,8 @@ namespace ShippingProject
 
                 shippingCosts.IsSpeedyShipping = true;
                 shippingCosts.SpeedyShippingCost = shippingCosts.ParcelCost;
-                shippingCosts.TotalCost = shippingCosts.ParcelCost + shippingCosts.SpeedyShippingCost;
+
+                shippingCosts.TotalCost = shippingCosts.TotalCost + shippingCosts.SpeedyShippingCost;
 
                 return shippingCosts;
             }
