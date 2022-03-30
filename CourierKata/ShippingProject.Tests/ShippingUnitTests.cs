@@ -78,8 +78,18 @@ namespace ShippingProject.Tests
 
             //Assert
             Assert.AreEqual(expectedResult, result);
+        }
 
+        // Task 3 - apply an weight charge based on parcels
 
+        [Test]
+        [TestCase(2, ParcelSize.Small, 2)]
+
+        public void ReturnCorrectWeightCharge(double weight, ParcelSize parcelSize, double expectedOverWeightCharge)
+        {
+            //Arrange
+            //Act
+            //Assert
 
         }
     }
