@@ -81,6 +81,10 @@ namespace ShippingProject.Tests
         [TestCase(10, 10, 10, 2, 8, 8, ParcelSize.Medium, true)]
         [TestCase(25, 25, 25, 5, 15, 15, ParcelSize.Large, true)]
         [TestCase(50, 50, 50, 9, 25, 25, ParcelSize.XL, true)]
+
+        [TestCase(50, 50, 50, 45, 50, 0, ParcelSize.Heavy, false)]
+        [TestCase(50, 50, 50, 60, 60, 25, ParcelSize.Heavy, true)]
+
         public void ReturnShippingCosts(double length, double height, double width, double weight, double expectedTotal, double speedyShippingCost, ParcelSize parcelSize, bool speedyShipping)
         {
             //Arrange
@@ -103,6 +107,7 @@ namespace ShippingProject.Tests
         }
 
         // Task 3 - apply an weight charge based on parcels
+        // Task 4  - applied the heavy weight class to tests
 
         [Test]
         [TestCase(2, ParcelSize.Small, 2)]
@@ -117,6 +122,9 @@ namespace ShippingProject.Tests
         [TestCase(15, ParcelSize.XL, 10)]
         [TestCase(9, ParcelSize.XL, 0)]
 
+        [TestCase(40, ParcelSize.Heavy, 0)]
+        [TestCase(55, ParcelSize.Heavy, 5)]
+
         public void ReturnCorrectWeightCharge(double weight, ParcelSize parcelSize, double expectedOverWeightCharge)
         {
             //Arrange
@@ -126,6 +134,7 @@ namespace ShippingProject.Tests
 
             //Assert
             Assert.AreEqual(expectedOverWeightCharge, result);
+
         }
     }
 }
