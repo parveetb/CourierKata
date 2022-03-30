@@ -25,6 +25,7 @@ namespace ShippingProject.Models
         Small,
         Medium,
         Large,
-        XL
+        XL,
+        Heavy
     }
 }
