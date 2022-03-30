@@ -18,9 +18,12 @@ namespace ShippingProject.Helper
 
         private static readonly double XLWeightLimit = 10;
 
+        private static readonly double HeavyWeightLimit = 50;
+
 
         //Charge Per KG over weight
         private static readonly double CostPerKgOverWeight = 2;
+        private static readonly double HeavyParcelCostPerKgOverWeight = 1;
 
 
         // ParcelSize Costs
@@ -28,6 +31,7 @@ namespace ShippingProject.Helper
         private static readonly double MediumParcelCost = 8;
         private static readonly double LargeParcelCost = 15;
         private static readonly double XLParcelCost = 25;
+        private static readonly double HeavyParcelCost = 50;
 
         public static double CalculateCostFromParcelSize(ParcelSize parcelSize)
         {
@@ -39,8 +43,10 @@ namespace ShippingProject.Helper
                     return MediumParcelCost;
                 case ParcelSize.Large:
                     return LargeParcelCost;
-                default:
+                case ParcelSize.XL:
                     return XLParcelCost;
+                default:
+                    return HeavyParcelCost;
             }
         }
 
@@ -59,8 +65,9 @@ namespace ShippingProject.Helper
                 return ParcelSize.Medium;
             if (dimensions < 100 & weight < XLWeightLimit)
                 return ParcelSize.Large;
-
-            return ParcelSize.XL;
+            if (dimensions > 100 & weight < HeavyWeightLimit)
+                return ParcelSize.XL;
+            return ParcelSize.Heavy;
 
         }
 
@@ -88,10 +95,16 @@ namespace ShippingProject.Helper
                         return overWeightCost = (weight - LargeWeightLimit) * CostPerKgOverWeight;
                     }
                     break;
-                default:
+                case ParcelSize.XL:
                     if (weight > XLWeightLimit)
                     {
                         return overWeightCost = (weight - XLWeightLimit) * CostPerKgOverWeight;
+                    }
+                    break;
+                case ParcelSize.Heavy:
+                    if (weight > HeavyWeightLimit)
+                    {
+                        return overWeightCost = (weight - HeavyWeightLimit) * HeavyParcelCostPerKgOverWeight;
                     }
                     break;
             }
