@@ -50,32 +50,36 @@ namespace ShippingProject.Tests
         }
 
         [Test]
-        [TestCase(2, 2, 2, 3, ParcelSize.Small)]
-        [TestCase(10, 10, 10, 8, ParcelSize.Medium)]
-        [TestCase(25, 25, 25, 15, ParcelSize.Large)]
-        [TestCase(50, 50, 50, 25, ParcelSize.XL)]
-        [TestCase(50, 25, 25, 25, ParcelSize.XL)]
-        public void ReturnShippingCosts(double length, double height, double width, double expectedTotal, ParcelSize parcelSize)
+        [TestCase(2, 2, 2, 3, 0, ParcelSize.Small, false)]
+        [TestCase(10, 10, 10, 8, 0, ParcelSize.Medium, false)]
+        [TestCase(25, 25, 25, 15, 0, ParcelSize.Large, false)]
+        [TestCase(50, 50, 50, 25, 0, ParcelSize.XL, false)]
+        [TestCase(2, 2, 2, 3, 3, ParcelSize.Small, true)]
+        [TestCase(10, 10, 10, 8, 8, ParcelSize.Medium, true)]
+        [TestCase(25, 25, 25, 15, 15, ParcelSize.Large, true)]
+        [TestCase(50, 50, 50, 25, 25, ParcelSize.XL, true)]
+        public void ReturnShippingCosts(double length, double height, double width, double expectedTotal, double speedyShippingCost, ParcelSize parcelSize, bool speedyShipping)
         {
             //Arrange
             Shipping shipping = new Shipping()
             {
                 ParcelCost = expectedTotal,
                 ParcelSize = parcelSize,
-                TotalCost = expectedTotal
+                SpeedyShippingCost = speedyShippingCost,
+                TotalCost = expectedTotal + speedyShippingCost,
+                IsSpeedyShipping = speedyShipping
             };
 
             var expectedResult = JsonConvert.SerializeObject(shipping);
 
             //Act
-            var result = JsonConvert.SerializeObject(ShippingService.GetShippingCost(length, height, width));
+            var result = JsonConvert.SerializeObject(ShippingService.GetShippingCost(length, height, width, speedyShipping));
 
             //Assert
             Assert.AreEqual(expectedResult, result);
 
+
+
         }
-
-
-
     }
 }

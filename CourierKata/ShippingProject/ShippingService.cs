@@ -5,7 +5,7 @@ namespace ShippingProject
 {
     public class ShippingService
     {
-        public static Shipping GetShippingCost(double length, double height, double width)
+        public static Shipping GetParcelCost(double length, double height, double width)
         {
             Shipping shipping = new Shipping();
 
@@ -19,8 +19,25 @@ namespace ShippingProject
             return shipping;
         }
 
+        public static Shipping GetShippingCost(double length, double height, double width, bool speedyShipping)
+        {
+            if (speedyShipping == true)
+            {
+                Shipping shippingCosts = GetParcelCost(length, height, width);
 
-        public static double CalculateCostFromParcelSize(ParcelSize parcelSize)
+                shippingCosts.IsSpeedyShipping = true;
+                shippingCosts.SpeedyShippingCost = shippingCosts.ParcelCost;
+                shippingCosts.TotalCost = shippingCosts.ParcelCost + shippingCosts.SpeedyShippingCost;
+
+                return shippingCosts;
+            }
+            else
+            {
+                return GetParcelCost(length, height, width);
+            }
+        }
+
+            public static double CalculateCostFromParcelSize(ParcelSize parcelSize)
         {
             switch (parcelSize)
             {
