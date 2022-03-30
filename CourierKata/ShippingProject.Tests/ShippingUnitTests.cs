@@ -63,12 +63,19 @@ namespace ShippingProject.Tests
                 ParcelCost = expectedTotal,
                 ParcelSize = parcelSize,
                 TotalCost = expectedTotal
-            };           
+            };
+
+            var expectedResult = JsonConvert.SerializeObject(shipping);
 
             //Act
-            //var result 
+            var result = JsonConvert.SerializeObject(ShippingService.GetShippingCost(length, height, width));
+
             //Assert
+            Assert.AreEqual(expectedResult, result);
 
         }
+
+
+
     }
 }

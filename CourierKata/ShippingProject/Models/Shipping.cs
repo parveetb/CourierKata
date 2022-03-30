@@ -12,6 +12,9 @@ namespace ShippingProject.Models
 
         public ParcelSize ParcelSize { get; set; }
         public double ParcelCost { get; set; }
+
+        public bool IsSpeedyShipping { get; set; }
+        public double SpeedyShippingCost { get; set; }
     }
 
 
