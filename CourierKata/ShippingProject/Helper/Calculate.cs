@@ -9,6 +9,16 @@ namespace ShippingProject.Helper
 {
     public class Calculate
     {
+        private static readonly double SmallWeightLimit = 1;
+
+        private static readonly double MediumWeightLimit = 3;
+
+        private static readonly double LargeWeightLimit = 6;
+
+        private static readonly double XLWeightLimit = 10;
+
+        private static readonly double CostPerKgOverWeight = 2;
+
         public static double CalculateCostFromParcelSize(ParcelSize parcelSize)
         {
             switch (parcelSize)
